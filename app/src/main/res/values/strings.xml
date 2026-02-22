@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Demo App</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="developer">Leo Empire</string>
+
+     <!-- AdMob IDs -->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511710</string>
+    <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978110</string>
+    <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173710</string>
+    <string name="admob_rewarded_id">ca-app-pub-3940256099942544/5224354910</string>
+
+</resources>
+

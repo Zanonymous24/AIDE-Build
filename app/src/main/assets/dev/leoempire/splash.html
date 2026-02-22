@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splash Screen</title>
+    <style>
+        /* Style for splash screen */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FF7E00; /* Background color */
+        }
+
+        .splash-text {
+            font-size: 24px;
+            color: #333; /* Text color */
+        }
+    </style>
+</head>
+
+<body>
+    <img src="assets/logo.png"/ width="300px" height="500px">
+    <script>
+        // Wait for 5 seconds then redirect to main.html
+        setTimeout(function () {
+            window.location.href = 'MainActivity.html';
+        }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+</body>
+
+</html>
