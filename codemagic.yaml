@@ -1,5 +1,5 @@
 workflows:
-  android-workflow:
+  android-release:
     name: SiteNative Android Workflow
     max_build_duration: 30
     environment:
@@ -9,8 +9,14 @@ workflows:
         FCI_KEYSTORE_PASSWORD: password
         FCI_KEY_PASSWORD: password
         FCI_KEY_ALIAS: test
-        PACKAGE_NAME: "io.sitenative.app.prod_app"
-        APP_UID: "test_uid"
+        PACKAGE_NAME: "dev.leoempire.vexify"       # Replace via PHP
+        APP_NAME: "Demo App"                       # Replace via PHP
+        DEVELOPER_NAME: "Leo Empire"               # Replace via PHP
+        ADMOB_APP_ID: "ca-app-pub-3940256099942544~3347511710"
+        ADMOB_BANNER_ID: "ca-app-pub-3940256099942544/6300978110"
+        ADMOB_INTERSTITIAL_ID: "ca-app-pub-3940256099942544/1033173710"
+        ADMOB_REWARDED_ID: "ca-app-pub-3940256099942544/5224354910"
+        THEME_COLOR: "#a20dd9"
 
     scripts:
       - name: Set up key properties
@@ -22,6 +28,27 @@ workflows:
           keyAlias=$FCI_KEY_ALIAS
           storeFile=/tmp/keystore.keystore
           EOF
+
+      - name: Replace strings.xml placeholders
+        script: |
+          for file in app/src/main/res/values/strings.xml app/src/main/res/values-v21/strings.xml; do
+            sed -i "s|<string name=\"app_name\">.*</string>|<string name=\"app_name\">$APP_NAME</string>|" "$file"
+            sed -i "s|<string name=\"developer\">.*</string>|<string name=\"developer\">$DEVELOPER_NAME</string>|" "$file"
+            sed -i "s|<string name=\"admob_app_id\">.*</string>|<string name=\"admob_app_id\">$ADMOB_APP_ID</string>|" "$file"
+            sed -i "s|<string name=\"admob_banner_id\">.*</string>|<string name=\"admob_banner_id\">$ADMOB_BANNER_ID</string>|" "$file"
+            sed -i "s|<string name=\"admob_interstitial_id\">.*</string>|<string name=\"admob_interstitial_id\">$ADMOB_INTERSTITIAL_ID</string>|" "$file"
+            sed -i "s|<string name=\"admob_rewarded_id\">.*</string>|<string name=\"admob_rewarded_id\">$ADMOB_REWARDED_ID</string>|" "$file"
+          done
+
+      - name: Replace colors.xml placeholder
+        script: |
+          for file in app/src/main/res/values/colors.xml app/src/main/res/values-v21/colors.xml; do
+            sed -i "s|<color name=\"status_bar_color\">.*</color>|<color name=\"status_bar_color\">$THEME_COLOR</color>|" "$file"
+          done
+
+      - name: Replace package name in AndroidManifest.xml
+        script: |
+          sed -i "s|package=\".*\"|package=\"$PACKAGE_NAME\"|" app/src/main/AndroidManifest.xml
 
       - name: Clean previous builds
         script: ./gradlew clean
